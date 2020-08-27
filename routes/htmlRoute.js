@@ -1,7 +1,5 @@
 const path = require("path");
 
-// const mainDir = path.join(__dirname, "/public");
-
 module.exports = function (app) {
   // RETURNS NOTES HTML FILE
   app.get("/notes", function (req, res) {

@@ -1,12 +1,9 @@
 // LOADS DATA FROM INDEX
-// const dbNotes = require("../db/store");
 const fs = require("fs");
 const router = require("express").Router();
 const path = require("path");
-// GETS API REQUEST
 
 // * GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
-// Going to set this to listen on '/api/notes' by using app.use('/api',apiRoutes) in server.js
 router.get("/notes", function (req, res) {
   fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (
     error,
@@ -23,11 +20,9 @@ router.get("/notes", function (req, res) {
 });
 
 // SEND REQUEST TO DATABASE AND GET RESPONSE HERE
-// router.post("path", function (req, res) {
-//   const request = req.body;
-// });
-//   .then(function (response) {
-//     res.json(response);
+router.post("path", function (req, res) {
+  const request = req.body;
+});
 
 // * POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
 
