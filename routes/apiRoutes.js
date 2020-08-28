@@ -9,17 +9,19 @@ router.get("/notes", function (req, res) {
     error,
     data
   ) {
-    if (error) {
-      return console.log(error);
+    if (err) {
+      throw err;
     }
-    res.json(JSON.parse(data));
+    let note = JSON.parse(data);
   });
 });
 
-// SEND REQUEST TO DATABASE AND GET RESPONSE HERE
+// SEND REQUEST TO DATABASE AND GET RESPONSE HERE -SAYS NOTE IS NOT DEFINED IN TERMINAL
 router.post("/notes", function (req, res) {
-  const request = req.body;
-  res.send;
+  let request = req.body;
+  note.push(request);
+  newDb();
+  return console.log("added new note " + request.title);
 });
 
 // * POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
