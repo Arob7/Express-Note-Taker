@@ -2,6 +2,7 @@
 const fs = require("fs");
 const router = require("express").Router();
 const path = require("path");
+let note = JSON.parse(data);
 
 // * GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
 router.get("/notes", function (req, res) {
@@ -12,7 +13,7 @@ router.get("/notes", function (req, res) {
     if (err) {
       throw err;
     }
-    let note = JSON.parse(data);
+    // let note = JSON.parse(data);
   });
 });
 
@@ -35,7 +36,7 @@ router.delete("/api/notes/:id", function (req, res) {
       db.splice(noteIndex, 1);
       fs.writeFile(filePath, JSON.stringify(db), (err) => {
         if (err) throw err;
-        console.log("Note deleted");
+        console.log("Note has been deleted");
       });
       res.end();
     }
