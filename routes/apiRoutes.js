@@ -2,27 +2,25 @@
 const fs = require("fs");
 const router = require("express").Router();
 const path = require("path");
-let note = JSON.parse(data);
+// let note = data;
 
 // * GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
 router.get("/notes", function (req, res) {
-  fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (
-    error,
-    data
-  ) {
+  // let data = JSON.parse(
+  fs.readFileSync("./db/db.json", "utf8", function (error, data) {
     if (err) {
       throw err;
     }
-    // let note = JSON.parse(data);
+    let note = JSON.parse(data);
   });
 });
 
 // SEND REQUEST TO DATABASE AND GET RESPONSE HERE -SAYS NOTE IS NOT DEFINED IN TERMINAL
 router.post("/notes", function (req, res) {
+  let note = JSON.parse(data);
   let request = req.body;
   note.push(request);
   newDb();
-  return console.log("added new note " + request.title);
 });
 
 // * POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
@@ -36,7 +34,7 @@ router.delete("/api/notes/:id", function (req, res) {
       db.splice(noteIndex, 1);
       fs.writeFile(filePath, JSON.stringify(db), (err) => {
         if (err) throw err;
-        console.log("Note has been deleted");
+        console.log("Note deleted");
       });
       res.end();
     }
