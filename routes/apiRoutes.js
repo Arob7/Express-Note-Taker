@@ -1,4 +1,3 @@
-// LOADS DATA FROM INDEX
 const fs = require("fs");
 const router = require("express").Router();
 const path = require("path");
@@ -13,7 +12,6 @@ router.get("/notes", function (req, res) {
       return console.log(err);
     }
     res.json(JSON.parse(data));
-    // console.log(data);
   });
 });
 
@@ -26,7 +24,7 @@ router.post("/notes", function (req, res) {
     data
   ) {
     if (err) {
-      return console.log(err);
+      throw err;
     }
     console.log(data);
     var notes = JSON.parse(data);
@@ -46,7 +44,6 @@ router.post("/notes", function (req, res) {
         res.json(notes);
       }
     );
-    // res.json(JSON.parse(data));
   });
 });
 
@@ -54,7 +51,23 @@ router.post("/notes", function (req, res) {
 
 // * DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. This means you'll need to find a way to give each note a unique `id` when it's saved. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
 // router.delete("/notes", function (req, res) {
-//   res.send("id");
+//   fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (
+//     err,
+//     data
+//   ) {
+//     if (err) {
+//       throw err;
+//     }
+//     var notes = JSON.parse(data);
+//     console.log(notes);
+//     var lastIndex = notes.length - 1;
+//     console.log(lastIndex);
+//     var lastID = notes[lastIndex].id;
+//     var newId = lastID + 1;
+//     console.log(newId);
+//     newNote.id = newId;
+//     console.log(newNote);
+//   });
 // });
 //
 module.exports = router;
