@@ -9,18 +9,45 @@ router.get("/notes", function (req, res) {
     err,
     data
   ) {
-    if (err) throw err;
-
+    if (err) {
+      return console.log(err);
+    }
     res.json(JSON.parse(data));
-    console.log(data);
+    // console.log(data);
   });
 });
 
 // SEND REQUEST TO DATABASE AND GET RESPONSE HERE
 router.post("/notes", function (req, res) {
-  const newNoteID = req.body;
-  res.send(newNoteID);
-  console.log(newNoteID);
+  const newNote = req.body;
+  console.log(newNote);
+  fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (
+    err,
+    data
+  ) {
+    if (err) {
+      return console.log(err);
+    }
+    console.log(data);
+    var notes = JSON.parse(data);
+    var lastIndex = notes.length - 1;
+    console.log(lastIndex);
+    var lastID = notes[lastIndex].id;
+    var newId = lastID + 1;
+    console.log(newId);
+    newNote.id = newId;
+    console.log(newNote);
+    notes.push(newNote);
+    fs.writeFile(
+      path.join(__dirname, "../db/db.json"),
+      JSON.stringify(notes),
+      function (err) {
+        if (err) throw err;
+        res.json(notes);
+      }
+    );
+    // res.json(JSON.parse(data));
+  });
 });
 
 // * POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
